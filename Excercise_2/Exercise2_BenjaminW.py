@@ -32,32 +32,40 @@ def avg_grade():
     all_grades = []
 
     while True:
-        student = input("Enter student name: ")
-        grade = int(input("Enter student grade (0-5): "))
-        if grade < 0 or grade > 5:
-            print("\nGrade cannot be outside the range of 0-5")
-        else:
-            if student in grades:
-                grades[student].append(grade)
-                all_grades.append(grade)
+        try:
+            student = input("Enter student name: ")
+            grade = int(input("Enter student grade (0-5): "))
+        except ValueError:
+            grade = None
+        try:
+            if grade is None or grade == None or student == "":
+                print("\nYou must input something to both fields")
+            elif grade < 0 or grade > 5:
+                print("\nGrade cannot be outside the range of 0-5")
             else:
-                grades[student] = [grade]
-                all_grades.append(grade)
-                
-        end_loop = input("Enter 'y' to end loop or 'n' to continue: ").capitalize()
-        if end_loop == "Y":
-            break
-        elif end_loop =="N":
-            continue
-        else:
-            print("\nOnly allowed inputs are 'y' or 'n'")
+                if student in grades:
+                    grades[student].append(grade)
+                    all_grades.append(grade)
+                else:
+                    grades[student] = [grade]
+                    all_grades.append(grade)
 
-    for student, grades in grades.items():
-        average_grade = int(sum(grades) / len(grades))
-        print("\nStudent:", student)
-        print("Average grade:", average_grade)
-    all_average_grade = int(sum(all_grades) / len(all_grades))
-    print("Average grade of all students:", all_average_grade)
+            end_loop = input("Enter 'y' to end loop or 'n' to continue: ").capitalize()
+            if end_loop == "Y":
+                break
+            elif end_loop =="N":
+                continue
+            else:
+                print("\nOnly allowed inputs are 'y' or 'n'")
+        except UnboundLocalError:
+            break
+    if len(grades) != 0 or len(all_grades) != 0:          
+        for student, grades in grades.items():
+            average_grade = int(sum(grades) / len(grades))
+            print("\nStudent:", student)
+            print("Average grade:", average_grade)
+        all_average_grade = int(sum(all_grades) / len(all_grades))
+        print("Average grade of all students:", all_average_grade)
 
 #student_grade()
 avg_grade()
