@@ -29,6 +29,7 @@ def student_grade():
 #Calculate average grade of multiple students
 def avg_grade():
     grades = {}
+    all_grades = []
 
     while True:
         student = input("Enter student name: ")
@@ -38,22 +39,25 @@ def avg_grade():
         else:
             if student in grades:
                 grades[student].append(grade)
+                all_grades.append(grade)
             else:
                 grades[student] = [grade]
+                all_grades.append(grade)
                 
         end_loop = input("Enter 'y' to end loop or 'n' to continue: ").capitalize()
         if end_loop == "Y":
             break
-        elif end_loop != "Y" or end_loop != "N":
-            print("\nOnly allowed inputs are 'y' or 'n'")
+        elif end_loop =="N":
             continue
+        else:
+            print("\nOnly allowed inputs are 'y' or 'n'")
 
     for student, grades in grades.items():
         average_grade = int(sum(grades) / len(grades))
         print("\nStudent:", student)
         print("Average grade:", average_grade)
-
-
+    all_average_grade = int(sum(all_grades) / len(all_grades))
+    print("Average grade of all students:", all_average_grade)
 
 #student_grade()
 avg_grade()
