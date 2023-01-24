@@ -40,14 +40,17 @@ def avg_grade():
                 grades[student].append(grade)
             else:
                 grades[student] = [grade]
-
-        end_loop = input("Enter 'y' to end loop or 'n' to continue: ")
-        if end_loop == 'y':
+                
+        end_loop = input("Enter 'y' to end loop or 'n' to continue: ").capitalize()
+        if end_loop == "Y":
             break
+        elif end_loop != "Y" or end_loop != "N":
+            print("\nOnly allowed inputs are 'y' or 'n'")
+            continue
 
     for student, grades in grades.items():
         average_grade = int(sum(grades) / len(grades))
-        print("Student:", student)
+        print("\nStudent:", student)
         print("Average grade:", average_grade)
 
 
