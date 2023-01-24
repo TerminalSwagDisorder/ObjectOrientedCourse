@@ -1,4 +1,4 @@
-# File name: Exercise1_BenjaminW
+# File name: Exercise1_BenjaminW.py
 # Auth: Benjamin Willför/TerminalSwagDisorder
 # Desc: File containing all the code for excercise 1 of OOP course
 
