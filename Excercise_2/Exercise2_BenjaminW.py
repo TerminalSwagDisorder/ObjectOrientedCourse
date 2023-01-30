@@ -2,6 +2,8 @@
 # Auth: Benjamin Willför/TerminalSwagDisorder
 # Desc: File containing all the code for excercise 2 of OOP course
 
+import random
+
 #Calculate student grade
 def student_grade():
     student = input("Enter student name: ")
@@ -50,10 +52,10 @@ def avg_grade():
                     grades[student] = [grade]
                     all_grades.append(grade)
 
-            end_loop = input("Enter 'y' to end loop or 'n' to continue: ").capitalize()
-            if end_loop == "Y":
+            end_loop = input("Enter 'y' to continue or 'n' to end: ").capitalize()
+            if end_loop == "N":
                 break
-            elif end_loop =="N":
+            elif end_loop =="Y":
                 continue
             else:
                 print("\nOnly allowed inputs are 'y' or 'n'")
@@ -65,7 +67,47 @@ def avg_grade():
             print("\nStudent:", student)
             print("Average grade:", average_grade)
         all_average_grade = int(sum(all_grades) / len(all_grades))
-        print("Average grade of all students:", all_average_grade)
+        print("\nAverage grade of all students:", all_average_grade)
 
-#student_grade()
+# Class for coins
+class Coin:
+    def __init__(self):
+        self.sideup = "Heads"
+        
+    def toss(self):
+        rng = random.randint(0, 11)
+        if 0 <= rng <= 4:
+            self.sideup = "Heads"
+        elif rng == 10:
+            self.sideup = "Side"
+        elif rng == 11:
+            self.sideup = "Coin dissappears"
+        else:
+            self.sideup = "Tails"
+            
+    def get_sideup(self):
+        return self.sideup
+
+    
+# Function for displaying the coin
+
+def coin():
+
+    my_coin = Coin()
+    strangers_coin = Coin()
+    
+    i = 0
+    while i < 10:
+        i += 1
+        print("\nState of my coin:")
+        print(my_coin.get_sideup())
+
+        my_coin.toss()
+
+        print("New state of my coin:")
+        print(my_coin.get_sideup())
+
+
+student_grade()
 avg_grade()
+coin()
