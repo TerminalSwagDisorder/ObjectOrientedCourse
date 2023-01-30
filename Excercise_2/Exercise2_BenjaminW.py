@@ -3,8 +3,10 @@
 # Desc: File containing all the code for excercise 2 of OOP course
 
 import random
+import datetime
+import time
 
-#Calculate student grade
+# Calculate student grade
 def student_grade():
     student = input("Enter student name: ")
     points = int(input("Enter student points (0-120): "))
@@ -28,7 +30,7 @@ def student_grade():
         print("\nStudent:", student)
         print("Grade", grade)
 
-#Calculate average grade of multiple students
+# Calculate average grade of multiple students
 def avg_grade():
     grades = {}
     all_grades = []
@@ -107,7 +109,58 @@ def coin():
         print("New state of my coin:")
         print(my_coin.get_sideup())
 
+# Class for alarm clock
+class AlarmClock2:
+    def __init__(self):
+        self.current_time = datetime.datetime.now().strftime("%X")
+        self.alarm_time = None
+        self.alarm_active = False
+        self.alarm_sound = None
+        self.snooze_duration = datetime.timedelta(minutes=10)
 
-student_grade()
-avg_grade()
-coin()
+    def set_alarm(self, time: datetime.datetime):
+        if time.strftime("%X") > self.current_time:
+            self.alarm_time = time.strftime("%X")
+        else:
+            raise ValueError("Alarm time must be in the future")
+
+    def snooze_alarm(self):
+        self.alarm_time += self.snooze_duration
+
+    def turn_off_alarm(self):
+        self.alarm_active = False
+
+    def _play_alarm_sound(self):
+        print("Playing alarm sound:", self.alarm_sound)
+
+    def _check_alarm(self):
+        self.current_time = datetime.datetime.now().strftime("%X")
+        if str(self.current_time) == str(self.alarm_time) and self.alarm_active:
+            print("Time's up")
+            self._play_alarm_sound()
+            
+def run_alarm_clock():
+    alarm = AlarmClock2()
+    
+    print("Current time:", alarm.current_time)
+    alarm_time_input = str(input("Enter the alarm time (HH:MM:SS): "))
+    try:
+        alarm_time = datetime.datetime.strptime(alarm_time_input, "%H:%M:%S")
+    except ValueError:
+        print("Incorrect time format, use (HH:MM:SS)")
+        return
+
+    alarm.set_alarm(datetime.datetime.now() + datetime.timedelta(seconds=10))
+    alarm.alarm_sound = "alarm.mp3"
+    alarm.alarm_active = True
+    
+    while True:
+        alarm._check_alarm()
+        time.sleep(1)
+        if False:
+            break
+        
+#student_grade()
+#avg_grade()
+#coin()
+run_alarm_clock()

@@ -1,0 +1,44 @@
+Data attributes needed for an alarm clock would include:
+1. Current time (Datetime)
+2. Alarm time (Datetime)
+3. Alarm active status (Boolean)
+4. Alarm ringtone (String)
+5. Snooze (Timedelta)
+
+Restrictions for these would be:
+1. Current time must be the current time
+2. Alarm time must be a future time / a time greater than current time
+3. Alarm active status must be true or false
+4. Alarm sound must be a valid file
+5. Snooze must be a positive value
+
+The methods used would be:
+1. Set Alarm (public) - sets the alarm time.
+2. Snooze Alarm (public) - adds the snooze duration to the alarm time.
+3. Turn Off Alarm (public) - sets the alarm active to False.
+4. Play Alarm Sound (private) - plays the alarm sound.
+5. Check Alarm (private) - checks if the current time is equal to the alarm time and if alarm active is True.
+
+Pseudocode:
+Class AlarmClock:
+    initialize current_time, datatype datetime
+    initialize alarm_time, datatype datetime
+    initialize alarm_active, datatype Boolean
+    initialize alarm_sound, datatype string
+    initialize snooze_duration, datatype timedelta
+    
+    Function set_alarm(time: datetime)
+        alarm_time = time
+    
+    Function snooze_alarm()
+        alarm_time = alarm_time + snooze_duration
+    
+    Function turn_off_alarm()
+        alarm_active = False
+    
+    Function _play_alarm_sound()
+        play alarm_sound
+    
+    Function _check_alarm()
+        if current_time == alarm_time and alarm_active == True:
+            _play_alarm_sound()
