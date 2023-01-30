@@ -42,3 +42,11 @@ Class AlarmClock:
     Function _check_alarm()
         if current_time == alarm_time and alarm_active == True:
             _play_alarm_sound()
+
+
+
+Current time: 18:55:27
+Enter the alarm time (HH:MM:SS): 18:55:50
+
+Time's up
+Playing alarm sound: alarm.mp3

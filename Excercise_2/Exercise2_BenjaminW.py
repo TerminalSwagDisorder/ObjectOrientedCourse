@@ -136,7 +136,7 @@ class AlarmClock2:
     def _check_alarm(self):
         self.current_time = datetime.datetime.now().strftime("%X")
         if str(self.current_time) == str(self.alarm_time) and self.alarm_active:
-            print("Time's up")
+            print("\nTime's up")
             self._play_alarm_sound()
             
 def run_alarm_clock():
