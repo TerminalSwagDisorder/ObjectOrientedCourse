@@ -110,7 +110,7 @@ def coin():
         print(my_coin.get_sideup())
 
 # Class for alarm clock
-class AlarmClock2:
+class AlarmClock:
     def __init__(self):
         self.current_time = datetime.datetime.now().strftime("%X")
         self.alarm_time = None
@@ -119,13 +119,15 @@ class AlarmClock2:
         self.snooze_duration = datetime.timedelta(minutes=10)
 
     def set_alarm(self, time: datetime.datetime):
-        if time.strftime("%X") > self.current_time:
+        if str(time) > self.current_time:
             self.alarm_time = time.strftime("%X")
         else:
             raise ValueError("Alarm time must be in the future")
 
     def snooze_alarm(self):
-        self.alarm_time += self.snooze_duration
+        current_alarm = datetime.datetime.strptime(self.alarm_time, "%H:%M:%S")
+        current_alarm += self.snooze_duration
+        self.alarm_time = current_alarm.strftime("%X")
 
     def turn_off_alarm(self):
         self.alarm_active = False
@@ -135,12 +137,24 @@ class AlarmClock2:
 
     def _check_alarm(self):
         self.current_time = datetime.datetime.now().strftime("%X")
-        if str(self.current_time) == str(self.alarm_time) and self.alarm_active:
+        if self.current_time == self.alarm_time and self.alarm_active:
             print("\nTime's up")
             self._play_alarm_sound()
             
+            snooze_input = str(input("Input 's' to add 10 minutes to alarm time or 'e' to end alarm: ").capitalize())
+            if snooze_input == "S":
+                self.snooze_alarm()
+                print("Alarm has been snoozed")
+                print("Snooze", self.alarm_time)
+            elif snooze_input == "E":
+                self.turn_off_alarm()
+                self.alarm_active = False
+                print("Alarm turned off")
+            else:
+                print("Please only input 's' or 'e'")
+            
 def run_alarm_clock():
-    alarm = AlarmClock2()
+    alarm = AlarmClock()
     
     print("Current time:", alarm.current_time)
     alarm_time_input = str(input("Enter the alarm time (HH:MM:SS): "))
@@ -150,14 +164,14 @@ def run_alarm_clock():
         print("Incorrect time format, use (HH:MM:SS)")
         return
 
-    alarm.set_alarm(datetime.datetime.now() + datetime.timedelta(seconds=10))
+    alarm.set_alarm(alarm_time)
     alarm.alarm_sound = "alarm.mp3"
     alarm.alarm_active = True
     
     while True:
         alarm._check_alarm()
         time.sleep(1)
-        if False:
+        if not alarm.alarm_active:
             break
         
 #student_grade()
