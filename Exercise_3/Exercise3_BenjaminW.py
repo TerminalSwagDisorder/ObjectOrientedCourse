@@ -48,26 +48,20 @@ def coin_toss():
 
     my_coin = Coin()
     
-    print("\nState of my coin:")
-    print(my_coin.get_sideup())
-
+    print("\nState of my coin:", my_coin.get_sideup())
+    print("Tossing the coin")
     my_coin.toss()
-
-    print("New state of my coin:")
-    print(my_coin.get_sideup())
+    print("New state of my coin:", my_coin.get_sideup())
 
     
 def coin_currency():
     
     my_coin = Coin()
     
-    print("\nState of my coin:")
-    print(my_coin.get_currency())
-
+    print("\nCurrency of my coin:", my_coin.get_currency())
+    print("Exchanging the currency")
     my_coin.exchange()
-
-    print("New state of my coin:")
-    print(my_coin.get_currency())
+    print("New currency of my coin:", my_coin.get_currency())
 
 
 class Dice:
@@ -129,11 +123,13 @@ def dice_roll():
 
     
     print("\nThe dice rests with this face up:", my_dice.get_face())
+    print("Rolling the dice")
     my_dice.roll()
     print("The dice now shows:", my_dice.get_face())
 
     
     print("\nThe strangers dice rests with this face up:", strangers_dice.get_face())
+    print("Rolling the strangers dice")
     strangers_dice.roll()
     print("The strangers dice now shows:", strangers_dice.get_face())
 
@@ -145,11 +141,13 @@ def dice_paint():
 
     
     print("\nThe color of the dice is:", my_dice.get_color())
+    print("Painting the dice")
     my_dice.paint()
     print("You painted the dice to be:", my_dice.get_color())
 
     
     print("\nThe color of the strangers dice is:", strangers_dice.get_color())
+    print("Painting the strangers dice")
     strangers_dice.paint()
     print("The stranger painted the dice to be:", strangers_dice.get_color())
 
@@ -161,16 +159,25 @@ def dice_transmogrify():
 
     
     print("\nThe material of the dice is:", my_dice.get_material())
+    print("Transmogrifying the dice")
     my_dice.transmogrify()
     print("The material of the dice changed into:", my_dice.get_material())
 
     
-    print("\nThe material of the strangers dice is:", strangers_dice.get_material())    
+    print("\nThe material of the strangers dice is:", strangers_dice.get_material())
+    print("Transmogrifying the strangers dice")
     strangers_dice.transmogrify()
     print("The material of the strangers dice changed into:", strangers_dice.get_material())
 
-#coin_toss()
-#coin_currency()
-dice_roll()
-dice_paint()
-dice_transmogrify()
+    
+def coin_full():
+    coin_toss()
+    coin_currency()
+
+def dice_full():
+    dice_roll()
+    dice_paint()
+    dice_transmogrify()
+    
+coin_full()
+dice_full()
