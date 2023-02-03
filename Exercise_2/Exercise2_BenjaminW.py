@@ -174,7 +174,7 @@ def run_alarm_clock():
         if not alarm.alarm_active:
             break
         
-#student_grade()
-#avg_grade()
-#coin()
+student_grade()
+avg_grade()
+coin()
 run_alarm_clock()
