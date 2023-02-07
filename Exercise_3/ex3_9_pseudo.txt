@@ -1,0 +1,15 @@
+Initialize cell_phone as an instance of the CellPhone class
+
+Input manufacturer name
+Input model name
+Input retail price
+
+Invoke the constructor of the CellPhone class and pass in the manufacturer name, model name and retail price as arguments to initialize cell_phone
+
+Invoke the get_manufact() method on cell_phone and assign the result to manufact
+Invoke the get_model() method on cell_phone and assign the result to model
+Invoke the get_retail_price() method on cell_phone and assign the result to retail_price
+
+Print "Manufacturer:", followed by the value of manufact
+Print "Model:", followed by the value of model
+Print "Retail price", followed by the value of retail_price

@@ -1,0 +1,102 @@
+Round 1
+My: 6
+Strangers: 1
+Friends: 4
+
+Round 2
+My: 6
+Strangers: 1
+Friends: 4
+
+Round 3
+My: 1
+Strangers: 5
+Friends: 5
+I automatically win because blue is best
+
+Ending scores
+My points: 13 | Strangers points: 7 | Friends points: 13
+
+Ending colors
+My color: Blue | Strangers color: Blue |friends color: Red
+
+
+
+
+Round 1
+My: 1
+Strangers: 1
+Friends: 6
+
+Round 2
+My: 1
+Strangers: 2
+Friends: 3
+
+Round 3
+My: 6
+Strangers: 3
+Friends: 3
+
+The winner is my friend with 12 total points!
+
+Ending scores
+My points: 8 | Strangers points: 6 | Friends points: 12
+
+Ending colors
+My color: Green | Strangers color: Green |friends color: Red
+
+
+
+Round 1
+My: 1
+Strangers: 1
+Friends: 2
+
+Round 2
+My: 1
+Strangers: 5
+Friends: 4
+
+Round 3
+My: 3
+Strangers: 5
+Friends: 5
+
+The winner is the stranger with 11 total points, who won the tiebreaker!
+
+Ending scores
+My points: 5 | Strangers points: 11 | Friends points: 11
+
+Ending colors
+My color: Red | Strangers color: White |friends color: White
+
+
+pseudo:
+Initialize my_dice, strangers_dice and friends_dice as instances of the Dice class
+Initialize rng as a random integer between 0 and 1
+Initialize i to 0
+Initialize my_rolls, strangers_rolls and friends_rolls to 0
+
+Repeat 3 times
+	Increase i by 1
+	Roll my_dice, strangers_dice and friends_dice
+	Print the result of each player's roll
+	Add the face value of each roll to their respective player's rolls
+End repeat
+
+Create a dictionary named players_dict with keys "me", "the stranger", and "my friend"
+Set the values of players_dict to the respective rolls of each player
+
+Set max_points to the maximum of the values in players_dict
+Identify the players who have max_points in players_dict and save their names in tie_players list
+
+If the length of tie_players is greater than 1
+	Set win to a random player name in tie_players
+	Print that the winner is win with max_points total points and that they won the tiebreaker
+Else
+	Set win to the only player name in tie_players
+	Print that the winner is win with max_points total points
+End if
+
+Print the ending scores of each player
