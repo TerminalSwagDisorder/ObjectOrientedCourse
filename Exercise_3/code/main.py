@@ -4,6 +4,7 @@
 
 import coin
 import dice
+import phone
 import random
 import collections
 
@@ -35,84 +36,87 @@ def print_all_sideups(coins: list):
 	for i in coins:
 		print("Sideup:", i.get_sideup())
 
+# Dice game with tiebreaker
 def dice_game():
 	my_dice = dice.Dice()
 	strangers_dice = dice.Dice()
 	friends_dice = dice.Dice()
-	rng = random.randint(0, 1)
 	
+	rng = random.randint(0, 1)
 	i = 0
 	my_rolls = 0
 	strangers_rolls = 0
 	friends_rolls = 0
-	players = []
-	players_dict = {
-		my_rolls : 0,
-		strangers_rolls : 0,
-		friends_rolls : 0}
+	
+	my_dice.paint()
+	strangers_dice.paint()
+	friends_dice.paint()
+	my_color = my_dice.get_color()
+	strangers_color = strangers_dice.get_color()
+	friends_color = friends_dice.get_color()
 	
 	while i < 3:
 		i += 1
 		my_dice.roll()
 		strangers_dice.roll()
 		friends_dice.roll()
-		
-		
+
 		print("\nRound", i)
 		print("My:", my_dice.get_face())
 		print("Strangers:", strangers_dice.get_face())
 		print("Friends:", friends_dice.get_face())
-		
+
 
 		my_rolls += int(my_dice.get_face())
 		strangers_rolls += int(strangers_dice.get_face())
 		friends_rolls += int(friends_dice.get_face())
-	
-	players_dict.update({key:value})
-	players.append(my_rolls)
-	players.append(strangers_rolls)
-	players.append(friends_rolls)
-	
-	max_points = max(players)
-	tie_players = [x for x in players if x == max_points]
-	if len(tie_players) > 1:
-		win = random.choice(tie_players)
-	else:
-		win = max_points
-	
-	print(players_dict)
-	print(players)
-	print(win)
-	print("My:", my_rolls, "| Strangers:", strangers_rolls, "| Friends:", friends_rolls)
-	
-	
-	'''
-	if strangers_rolls < my_rolls > friends_rolls:
-		print("I win")
-	elif my_rolls < strangers_rolls > friends_rolls:
-		print("Stranger wins")
-	elif my_rolls < friends_rolls > strangers_rolls:
-		print("Friend wins")
-	else:
-		if my_rolls == strangers_rolls == friends_rolls:
-			print("test")
-'''
 
+	players_dict = {
+		"me" : my_rolls,
+		"the stranger" : strangers_rolls,
+		"my friend" : friends_rolls
+	}
 	
-def test():
-
+	max_points = max(players_dict.values())
+	tie_players = [k for k, v in players_dict.items() if v == max_points]
 
 	if len(tie_players) > 1:
-		# there's a tie between two or more players
-		winner = random.choice(tie_players)
+		if my_color == "Blue":
+			print("\nI automatically win because blue is best")
+		elif strangers_color == "Blue":
+			print("\nThe stranger automatically wins because blue is best")
+		elif friends_color == "Blue":
+			print("\nMy friend automatically wins because blue is best")
+		else:
+			win = random.choice(tie_players)
+			print("\nThe winner is", win, "with", max_points, "total points, who won the tiebreaker!")
 	else:
-		# there's no tie, the player with the max score wins
-		winner = max_score
+		win = tie_players[0]
+		print("\nThe winner is", win, "with", max_points, "total points!")
+
+	print("\nEnding scores")
+	print("My points:", my_rolls, "| Strangers points:", strangers_rolls, "| Friends points:", friends_rolls)
+	print("\nEnding colors")
+	print("My color:", my_color, "| Strangers color:", strangers_color, "|friends color:", friends_color)
+
+def phone_data():
+	manufact = str(input("Please give the manufacturers name: "))
+	model = str(input("Please give the model name: "))
+	retail_price = float(input("Please give the price: "))
+	
+	# Object creation
+	cell_phone = phone.CellPhone(manufact, model, retail_price)
+	
+	# Accessing public methods
+	print("Manufacturer:", cell_phone.get_manufact())
+	print("Model:", cell_phone.get_model())
+	print("Retail price", cell_phone.get_retail_price())
+	
 
 
 def main():
 
-		
+# Coin functions
 	coins_list = create_coins_list()
 	print(coins_list)
 	print_all_sideups(coins_list)
@@ -177,8 +181,10 @@ def main():
 	print("The material of the strangers dice changed into:", strangers_dice.get_material())
 # Dice functions end
 	
+	# Call these functions inside of main
+	phone_data()
+	coin_full()
+	dice_game()
 
 	
-#coin_full()
-dice_game()
 #main()
