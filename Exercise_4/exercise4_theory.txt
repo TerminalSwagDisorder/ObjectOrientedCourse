@@ -1,0 +1,16 @@
+1. 
+a. Inheritance: Feature in OOP allowing subclass to inherit attributes and behaviors from superclass.
+b. Multiple inheritance: OOP feature allowing subclass to inherit from multiple superclasses. A subclass can access all the attributes and methods of its parent classes.
+c. UML: Unified Modeling Language, standard language for modeling and designing software systems.
+d. UML class diagram: Type of diagram in UML representing the static structure of a system by showing classes, attributes, and relationships.
+
+2. 
+a. False. Procedural programming centers on executing instructions, while OOP is centered on creating objects.
+b. True. Object reusability is a key factor in increased use of OOP.
+c. False. It is a common practice in OOP to make data attributes private, and to provide methods to access and modify those attributes.
+d. True. Class methods in Python can have a decorator that specifies that the method does not operate on the instance of the class, and does not need the self parameter.
+e. True. Starting an attribute name with two underscores in Python indicates private attribute.
+f. False. The str method in Python can be directly called on an object, by calling the str() function on the object.
+
+3. 
+Following the UML syntax is important when modeling using UML diagrams because it defines standardized conventions for creating visual models, which helps to ensure that the diagrams are easily understandable and consistent across different systems and enables effective communication among stakeholders.
