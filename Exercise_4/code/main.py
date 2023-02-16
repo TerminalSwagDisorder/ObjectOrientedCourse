@@ -4,6 +4,7 @@
 
 import dice
 import phone
+import car
 import random
 
 def phone_data():
@@ -58,5 +59,49 @@ def phone_data():
 	print("\nAll phones")
 	print(phone_dict)
 	
+	
+def car_moment():
+	make = str(input("Please give the make of the car: "))
+	model = str(input("Please give the model of the car: "))
+	
+	while True:
+		try:
+			mileage = float(input("Please give the mileage of the car: "))
+			break
+		except ValueError:
+			print("Please use the format 'x.x' for the mileage")
+	
+	while True:
+		try:
+			price = float(input("Please give the price of the car: "))
+			break
+		except ValueError:
+			print("Please use the format 'x.x' for the price")
+		
+	color = str(input("Please give the color of the car: "))
+	
+	while True:
+		try:
+			max_load = float(input("Please give the maximum load (in kilograms): "))
+			break
+		except ValueError:
+			print("Please use the format 'x.x' for the maximum load")
+
+	while True:
+		try:
+			trunk_size = float(input("Please give the trunk size (in liters): "))
+			break
+		except ValueError:
+			print("Please use the format 'x.x' for the maximum trunk size")
+			
+	car1 = car.Car(make, model, mileage, price, color, max_load, trunk_size)
+	
+	print("\n")
+	print(car1)
+	
+	
 def main():
-	phone_data()
+	#phone_data()
+	car_moment()
+
+main()
