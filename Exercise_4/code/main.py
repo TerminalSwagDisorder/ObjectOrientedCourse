@@ -1,6 +1,6 @@
 # File name: main.py
 # Auth: Benjamin Willför/TerminalSwagDisorder
-# Desc: File containing functions for excercise 3 of OOP course
+# Desc: File containing functions for excercise 4 of OOP course
 
 import dice
 import phone

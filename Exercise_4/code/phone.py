@@ -1,6 +1,6 @@
-# File name: Exercise3_BenjaminW.py
+# File name: phone.py
 # Auth: Benjamin Willför/TerminalSwagDisorder
-# Desc: File containing classes for excercise 3 of OOP course
+# Desc: File containing classes for excercise 4 of OOP course
 
 class CellPhone:
 	# Data attributes
