@@ -102,18 +102,21 @@ def dice_game():
 def phone_data():
 	manufact = str(input("Please give the manufacturers name: "))
 	model = str(input("Please give the model name: "))
-	retail_price = float(input("Please give the price: "))
-	
+	while True:
+		try:
+			retail_price = float(input("Please give the price: "))
+			break
+		except ValueError:
+			print("Please use the format 'x.x' for the price")
+		
 	# Object creation
 	cell_phone = phone.CellPhone(manufact, model, retail_price)
 	
 	# Accessing public methods
-	print("Manufacturer:", cell_phone.get_manufact())
+	print("\nManufacturer:", cell_phone.get_manufact())
 	print("Model:", cell_phone.get_model())
 	print("Retail price", cell_phone.get_retail_price())
 	
-
-
 def main():
 
 # Coin functions
@@ -182,9 +185,8 @@ def main():
 # Dice functions end
 	
 	# Call these functions inside of main
-	phone_data()
-	coin_full()
 	dice_game()
+	phone_data()
 
 	
-#main()
+main()
