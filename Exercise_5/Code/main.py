@@ -22,8 +22,14 @@ def dice_game():
 	}
 
 	i = 0
-	
-	while i < 3:
+	while True:
+		try:
+			rounds = int(input("Please enter the amount of rounds you wish to have: "))
+			break
+		except ValueError:
+			print("Please only use positive integers")
+
+	for i in range(0, rounds):
 		i += 1
 		
 		for roll in dice_dict.values():
