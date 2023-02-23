@@ -137,14 +137,14 @@ def car_moment():
 				height = float(input("Please give the height of the mammal (in centimeters): "))
 				break
 			except ValueError:
-				print("Please use the format 'x.x' for the price")
+				print("Please use the format 'x.x' for the height")
 				
 		while True:
 			try:
 				weight = float(input("Please give the weight of the mammal (in kilograms): "))
 				break
 			except ValueError:
-				print("Please use the format 'x.x' for the price")
+				print("Please use the format 'x.x' for the weight")
 
 		
 		print("\nMammal #" + str(ID))
