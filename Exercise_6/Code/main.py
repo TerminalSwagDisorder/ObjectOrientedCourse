@@ -5,9 +5,12 @@
 import random
 import mammal
 import person
+import computerparts
 from time import sleep as sleep
 
 def main():
+	
+	# Initialize objects
 	cat1 = mammal.Cat(1, "Wille", 10, 5)
 	cat2 = mammal.Cat(2, "Catto", 12, 4)
 	cat3 = mammal.Cat(3, "Whiskers", 7, 2)
@@ -35,13 +38,17 @@ def main():
 	teacher1 = person.Teacher(3, "Jack", "Jones", 45, "Male", "Python programming", 2500)
 	teacher2 = person.Teacher(4, "Alice", "Alison", 34, "Female", "Computer hardware", 2200)
 	
+	
+	# Create list of objects for ease of use
 	all_mammals = [cat1,cat2, cat3, cat4, dog1, dog2, dog3, dog4, mouse1, mouse2, mouse3, mouse4, elephant1, elephant2, elephant3, elephant4, cat5, dog5, mouse5, elephant5]
 	all_people = [student1, student2, teacher1, teacher2]
+
 	
 	#mammal_test(all_mammals)
 	#school_people(all_people)
 	#pet_owners(all_mammals, all_people)
-	multiple_pet_owners(all_mammals, all_people)
+	#multiple_pet_owners(all_mammals, all_people)
+	pcparttest()
 	
 def mammal_test(all_mammals):
 	for mam in all_mammals:
@@ -88,57 +95,73 @@ def pet_owners(all_mammals, all_people):
 
 	print("\n")
 	for individual in all_people:
-		print("Owner/benefactor:", str(individual.get_first_name() + " " + individual.get_last_name()), " | Pet: ", individual.get_pet(), " | Benefactee: ", individual.get_benefactee())
+		print("Owner/benefactor:", str(individual.get_first_name() + " " + individual.get_last_name()), " | Pet: ", individual.get_pet(), "| Benefactee: ", individual.get_benefactee())
 		
 	print("\n")
 	for pet in all_mammals:
 		if isinstance(pet, mammal.DomesticMammal) and hasattr(pet, "get_owner"):
-			print("Pet:", pet.get_name(), " | Owner:", pet.get_owner())
+			print("Pet:", pet.get_name(), "| Owner:", pet.get_owner())
 			
 	print("\n")
 	for benefactee in all_mammals:
 		if isinstance(benefactee, mammal.WildMammal) and hasattr(benefactee, "get_benefactor"):
 			bene = str(benefactee.get_species() + " With ID: " + str(benefactee.get_ID()))
-			print("Benefactee:", bene, " | Benefactor:", benefactee.get_benefactor())
+			print("Benefactee:", bene, "| Benefactor:", benefactee.get_benefactor())
 	
 
 def multiple_pet_owners(all_mammals, all_people):
-	unavailable = []
-	print(len(all_mammals))
-	for individual in all_people:
-		benefactees_assigned = False
-		pets_assigned = False
+	pet_unavailable = []
+	wild_unavailable = []
+	unavailable = [pet_unavailable, wild_unavailable]
+	
+	pet_check = []
+	benefactee_check = []
 
-		pet_amount = 3
-		wild_amount = 3
+	# Create lists for domestic and wild mammals
+	for check in all_mammals:
+		if isinstance(check, mammal.DomesticMammal):
+			pet_check.append(check.get_ID())
+		elif isinstance(check, mammal.WildMammal):
+			benefactee_check.append(check.get_ID())
+
+	pet_check.sort()
+	benefactee_check.sort()
+
+	print(len(all_mammals))
+	for individual in all_people: 
+		
+		pet_amount = random.randint(0, 2)
+		wild_amount = random.randint(0, 2)
 		pet_list = []
 		wild_list = []
-		
+
 		# Give a random amount of pets to an owner
 		while len(pet_list) < pet_amount:
 			rng = random.randint(0, len(all_mammals) - 1)
-			#print(rng)
 
-			#print(rng, "(" + str(all_mammals[rng].get_ID()) + ")")
-			
 			if isinstance(all_mammals[rng], mammal.DomesticMammal) and hasattr(all_mammals[rng], "get_owner"):
 				petID = all_mammals[rng].get_ID()
-				if petID not in unavailable:
+				if petID not in pet_unavailable:
 					pet = all_mammals[rng].get_name()
 					owner = str(individual.get_first_name() + " " + individual.get_last_name())
 					
 					pet_list.append(pet)
 					all_mammals[rng].set_owner(owner)
 
-					unavailable.append(petID)
+					pet_unavailable.append(petID)
+					pet_unavailable.sort()
 					print(pet_list, unavailable)
-					
+
+
 					if len(pet_list) == pet_amount:
-						pets_assigned = True
 						individual.set_pet(pet_list)
 						print("final step", individual.get_first_name(), individual.get_pet())
+					elif len(pet_list) < pet_amount and len(pet_unavailable) == len(pet_check):
+						individual.set_pet(pet_list)
+						print("test1")
 						break
 
+					#elif len(pet_list) < pet_amount and len(pet_unavailable) == len(all_mammals) - wild_amount:
 
 		# Give a random amount of wild animals to a benefactor
 		while len(wild_list) < wild_amount:
@@ -146,7 +169,7 @@ def multiple_pet_owners(all_mammals, all_people):
 			
 			if isinstance(all_mammals[rng], mammal.WildMammal) and hasattr(all_mammals[rng], "get_benefactor"):
 				wildID = all_mammals[rng].get_ID()
-				if wildID not in unavailable:
+				if wildID not in wild_unavailable:
 					
 					benefactee = str(all_mammals[rng].get_species() + " With ID: " + str(wildID))
 					benefactor = str(individual.get_first_name() + " " + individual.get_last_name())
@@ -154,38 +177,41 @@ def multiple_pet_owners(all_mammals, all_people):
 					wild_list.append(benefactee)
 					all_mammals[rng].set_benefactor(benefactor)
 					
-					unavailable.append(wildID)
-					
+					wild_unavailable.append(wildID)
+					wild_unavailable.sort()
 					if len(wild_list) == wild_amount:
-						benefactees_assigned = True
 						individual.set_benefactee(wild_list)
+						print("Final step for", individual.get_first_name(), individual.get_benefactee())
+					elif len(wild_list) < wild_amount and len(pet_unavailable) == len(benefactee_check):
+						individual.set_benefactee(wild_list)
+						print("test2")
 						break
 
-		if not pets_assigned:
-			print("There are no more pets available for", individual.get_first_name(), individual.get_last_name())
-			continue  # Skip the rest of the loop if no pets were assigned
-		
-		if not benefactees_assigned:
-			print("There are no more benefactees available for", individual.get_first_name(), individual.get_last_name())
-			continue 
-		if not pet_list and not wild_list:
-			print("There are no more mammals available for anyone")
-			continue
-				
 	print("\n")
 	for individual in all_people:
-		print("Owner/benefactor:", str(individual.get_first_name() + " " + individual.get_last_name()), " | Pet: ", individual.get_pet(), " | Benefactee: ", individual.get_benefactee())
+		print("Owner/benefactor:", str(individual.get_first_name() + " " + individual.get_last_name()), " | Pet: ", individual.get_pet(), "| Benefactee: ", individual.get_benefactee())
 		
 	print("\n")
 	for pet in all_mammals:
 		if isinstance(pet, mammal.DomesticMammal) and hasattr(pet, "get_owner"):
-			print("Pet:", pet.get_name(), " | Owner:", pet.get_owner())
+			print("Pet:", pet.get_name(), "| Owner:", pet.get_owner())
 			
 	print("\n")
 	for benefactee in all_mammals:
 		if isinstance(benefactee, mammal.WildMammal) and hasattr(benefactee, "get_benefactor"):
 			bene = str(benefactee.get_species() + " With ID: " + str(benefactee.get_ID()))
-			print("Benefactee:", bene, " | Benefactor:", benefactee.get_benefactor())
-	
+			print("Benefactee:", bene, "| Benefactor:", benefactee.get_benefactor())
+			
+def pcparttest():
+	# External parts
+	keyboard1 = computerparts.Keyboard(1, "Logitech", "G213 Prodigy", "USB", "1.8m", "Membrane", "Full-size", "US", "RGB")
+	mouse1 = computerparts.Mouse(2, "Logitech", "G502 Hero", "USB", "1.8m", "Hero", 16000, 11, "RGB")
+	display1 = computerparts.Display(3, "Dell", "P2419H", "DisplayPort, HDMI", "23.8in", "1920x1080", 60, "IPS")
 
+	# Internal parts
+	cpu1 = computerparts.CPU(4, "Intel", "Core i9-11900K", "LGA 1200", 125, 8, 3.5, 5.3, "16MB")
+	gpu1 = computerparts.GPU(5, "Nvidia", "GeForce RTX 3080", "PCIe 4.0 x16", 320, 1440, 8704, "10GB GDDR6X")
+	memory1 = computerparts.Memory(6, "Kingston", "KVR24N17S8/8", "DDR4", 65, "Unbuffered", "8GB", "1", "2400MHz")
+
+	print(keyboard1, "\n\n", mouse1, "\n\n", display1, "\n\n", cpu1, "\n\n", gpu1, "\n\n", memory1)
 main()
