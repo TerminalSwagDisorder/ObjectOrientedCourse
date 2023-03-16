@@ -135,6 +135,8 @@ def country_quiz():
 		# If file is not found, create one and insert data
 		except FileNotFoundError:
 			print("File not found, creating and filling file countries.txt")
+					
+		finally:
 			with open("countries.txt", "w") as file:
 				for country in countries:
 					file.write(country + "\n")
