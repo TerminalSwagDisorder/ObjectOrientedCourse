@@ -72,8 +72,8 @@ def main():
 	
 	#rel_test(pet_list, car_list, student1, student2)
 	#pet_car_check(pet_list, car_list)
-	#country_quiz()
-	pcparts_test(mobo_list, cpu_list, gpu_list)
+	country_quiz()
+	#pcparts_test(mobo_list, cpu_list, gpu_list)
 
 def rel_test(pet_list, car_list, student1, student2):
 	# Add the pet to the student
@@ -152,14 +152,13 @@ def country_quiz():
 	for game in range(10):
 		print("\nRound " + str(game + 1))
 		rng = random.choice(list(countries_dict.keys()))
-
 		# If country has already been guessed, reroll 
 		while rng in already_guessed:
 				rng = random.choice(list(countries_dict.keys()))
 
-		ans = str(input("\nWhat is the capital of " + str(rng) + ": ")).capitalize()
+		ans = str(input("\nWhat is the capital of " + str(rng) + ": ")).upper()
 		already_guessed.add(rng)
-		if ans == countries_dict[rng]:
+		if ans == countries_dict[rng].upper():
 			print("Correct")
 			points += 1
 		else:
