@@ -3,7 +3,7 @@
 # Desc: File containing classes for excercise 8 of OOP course
 
 class House:
-	def __init__(self, num_windows, num_rooms, windows_dirty=True, floors_dirty=True, bed_unmade=True, surfaces_dusty=True, fridge_empty=True, toilet_paper_running_out=True):
+	def __init__(self, num_windows, num_rooms, windows_dirty = True, floors_dirty = True, bed_unmade = True, surfaces_dusty = True, fridge_empty = True, toilet_paper_running_out = True, state = 1):
 		self.num_windows = num_windows
 		self.num_rooms = num_rooms
 		self.windows_dirty = windows_dirty
@@ -12,10 +12,10 @@ class House:
 		self.surfaces_dusty = surfaces_dusty
 		self.fridge_empty = fridge_empty
 		self.toilet_paper_running_out = toilet_paper_running_out
-		self.state = 1
+		self.state = state
 
 	def __str__(self):
-		return f"State {self.state}: windows_dirty={self.windows_dirty}, floors_dirty={self.floors_dirty}, bed_unmade={self.bed_unmade}, surfaces_dusty={self.surfaces_dusty}, fridge_empty={self.fridge_empty}, toilet_paper_running_out={self.toilet_paper_running_out}"
+		return f"State: {self.state}\nWindows dirty: {self.windows_dirty}\nFloors dirty: {self.floors_dirty}\nBed unmade: {self.bed_unmade}\nSurfaces dusty: {self.surfaces_dusty}\nFridge empty: {self.fridge_empty}\nToilet paper out: {self.toilet_paper_running_out}\n"
 
 	def set_windows_dirty(self, windows_dirty):
 		self.windows_dirty = windows_dirty

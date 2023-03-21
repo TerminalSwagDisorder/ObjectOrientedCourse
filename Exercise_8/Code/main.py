@@ -4,12 +4,18 @@
 
 from time import sleep as sleep
 import house
+import cookies
 
 
 def main():
 	house1 = house.House(num_windows = 10, num_rooms = 5)
 	
-	clean_house1(house1)
+	cookies1 = cookies.Cookies("Vanilla", "Chocolate")
+	cookies2 = cookies.Cookies("Chocolate chip", None)
+	
+
+	#clean_house1(house1)
+	bake_cookies(cookies1, cookies2)
 
 def clean_house1(house1):	
 
@@ -70,23 +76,35 @@ def clean_house1(house1):
 			
 		elif do_task == 2:
 			if house1.get_state() == 1:
-				print("This is the first task, please do it")
+				print("Not doing task 1")
+				print(house1)
+				house1.set_state(2)
 				
 			elif house1.get_state() == 2:
 				print("Not doing task 2")
-				#house1.set_state(1)
+				print(house1)
+				house1.set_state(3)
 				
 			elif house1.get_state() == 3:
 				print("Not doing task 3")
-				#house1.set_state(2)
+				print(house1)
+				house1.set_state(4)
 				
 			elif house1.get_state() == 4:
 				print("Not doing task 4")
-				#house1.set_state(3)
+				print(house1)
+				house1.set_state(5)
 				
 			elif house1.get_state() == 5:
 				print("Not doing task 5")
-				#house1.set_state(4)
+				print(house1)
+				print("\n\nFinished cleaning!")
+				break
+				
 		sleep(0.5)
+		
+def bake_cookies(cookies1, cookies2):
+	print(cookies1)
+	print(cookies2)
 			
 main()
