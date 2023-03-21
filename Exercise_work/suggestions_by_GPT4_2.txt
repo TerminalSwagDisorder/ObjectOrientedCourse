@@ -1,0 +1,49 @@
+what about how could i remake the current code to utilize more functions
+
+You can refactor the code to use more functions by breaking the code into smaller, more manageable parts. Here's an example of how to split the code into functions:
+
+Define a function to remove unnecessary columns from the specs dictionary:
+python
+Copy code
+def remove_unnecessary_columns(specsdict):
+    delcol = [...] # As before
+
+    for column in delcol:
+        try:
+            specsdict.pop(column)
+        except:
+            continue
+
+    return specsdict
+Define a function to create the dictionaries for each component type:
+python
+Copy code
+def create_component_dicts(specsdict, partprice, parturl):
+    cpu_dict = {...} # As before
+    gpu_dict = {...} # As before
+    cooler_dict = {...} # As before
+    # (Similarly, create dictionaries for Motherboard, Memory, Storage, PSU, and Case)
+
+    return cpu_dict, gpu_dict, cooler_dict, motherboard_dict, memory_dict, storage_dict, psu_dict, case_dict
+Define a function to handle upsert and insert operations:
+python
+Copy code
+def upsert_insert(session, main_parts, partcategory, partname, cpu_dict, gpu_dict, cooler_dict, motherboard_dict, memory_dict, storage_dict, psu_dict, case_dict):
+    # (Continue with the existing upsert and insert code)
+Update the main part of the script to use the newly created functions:
+python
+Copy code
+for partcategory in search_terms:
+    # (Continue with the existing scraping code)
+
+    for part in parts:
+        # (Continue with the existing scraping code)
+
+        specsdict = remove_unnecessary_columns(specsdict)
+
+        cpu_dict, gpu_dict, cooler_dict, motherboard_dict, memory_dict, storage_dict, psu_dict, case_dict = create_component_dicts(specsdict, partprice, parturl)
+
+        upsert_insert(session, main_parts, partcategory, partname, cpu_dict, gpu_dict, cooler_dict, motherboard_dict, memory_dict, storage_dict, psu_dict, case_dict)
+
+        sleep(5)
+By splitting the code into functions, you can make it more readable, organized, and easier to maintain.

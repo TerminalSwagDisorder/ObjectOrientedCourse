@@ -1,0 +1,54 @@
+how could i utilize classes/objects in the provided code?
+
+
+To utilize classes/objects in the provided code, you can create a class for each component type (CPU, GPU, Cooler, etc.) and a class to handle the scraping and updating process. Here's an example of how you could refactor the code using classes:
+
+Create classes for each component type:
+python
+Copy code
+class CPU:
+    def __init__(self, name, manufacturer, core_count, performance_core_clock, performance_boost_clock, tdp, integrated_graphics, l3_cache, simultaneous_multithreading, includes_cpu_cooler, socket, price, url):
+        self.name = name
+        self.manufacturer = manufacturer
+        self.core_count = core_count
+        self.performance_core_clock = performance_core_clock
+        self.performance_boost_clock = performance_boost_clock
+        self.tdp = tdp
+        self.integrated_graphics = integrated_graphics
+        self.l3_cache = l3_cache
+        self.simultaneous_multithreading = simultaneous_multithreading
+        self.includes_cpu_cooler = includes_cpu_cooler
+        self.socket = socket
+        self.price = price
+        self.url = url
+
+# Similarly, create classes for GPU, Cooler, Motherboard, Memory, Storage, PSU, and Case
+Create a class to handle the scraping and updating process:
+python
+Copy code
+class PCPartPickerScraper:
+    def __init__(self, search_terms, pcpartpicker_scraper):
+        self.search_terms = search_terms
+        self.pcpartpicker_scraper = pcpartpicker_scraper
+
+    def scrape_and_update(self, session):
+        for partcategory in self.search_terms:
+            # (Continue with the existing scraping code)
+            # (Instead of creating dictionaries for upsert, create objects of the respective classes)
+            cpu = CPU(partname, specsdict["Manufacturer"], specsdict["Core Count"], specsdict["Performance Core Clock"], specsdict["Performance Boost Clock"], specsdict["TDP"], specsdict["Integrated Graphics"], specsdict["L3 Cache"], specsdict["Simultaneous Multithreading"], specsdict["Includes CPU Cooler"], specsdict["Socket"], partprice["Price"], parturl["Url"])
+            # (Similarly, create objects for GPU, Cooler, Motherboard, Memory, Storage, PSU, and Case)
+
+            # (Update the upsert and insert code to work with the newly created objects)
+            # ...
+
+    # (You can also create helper methods for upsert and insert operations)
+
+Update the main part of the script to use the newly created classes:
+python
+Copy code
+search_terms = [...] # As before
+pcpartpicker = pcpartpicker.Scraper() # As before
+
+scraper = PCPartPickerScraper(search_terms, pcpartpicker)
+scraper.scrape_and_update(session)
+By refactoring the code to use classes and objects, you can make it more modular, organized, and easier to maintain.

@@ -1,0 +1,1 @@
+use jimmsscraper, modify it to use functions and classes. Find appropriate classes, e.g., the data
