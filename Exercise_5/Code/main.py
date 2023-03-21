@@ -1,107 +1,98 @@
-# File name: main.py
+# File:		 main.py
 # Auth: Benjamin Willför/TerminalSwagDisorder
 # Desc: File containing functions for excercise 5 of OOP course
 
-import dice
-import player
-import mammal
-import random
-from pprint import pprint as pprint
-
+import card
+import deck
 
 def main():
-	my_dice = dice.Dice()
-	strangers_dice = dice.Dice()
-	friends_dice = dice.Dice()
-	pet_dice = dice.Dice()
 	
-	me = player.Player(1, "Me", "")
-	stranger = player.Player(2, "Stranger", "")
-	friend = player.Player(3, "Friend", "")
-
-	unavailable = []
-	mammal_dict = {}
-	pet_rolls = {
-		me.get_name(): 0,
-		stranger.get_name(): 0,
-		friend.get_name(): 0
-	}
-
-	dice_dict = {
-		me: my_dice,
-		stranger: strangers_dice,
-		friend: friends_dice
-	}
+	print("Let's test that a single card works...")
 	
-	rolls_dict = {
-		me.get_name(): 0,
-		stranger.get_name(): 0,
-		friend.get_name(): 0
-	}
+	my_card = card.Card("Hearts", 12)
+	my_card.show_card()
+	print(my_card)
 
+	print("Single card testing is over.\n")
 
+	print("Let's test that a deck of card is created...")
+
+	my_deck = deck.Deck()
+	my_deck.show_deck()
+
+	print("Card deck testing is over.\n")
+
+	print("Let's shuffle the deck.")
+	my_deck.shuffle_deck()
+
+	print("Let's test that a deck of card is shuffled...")
+
+	my_deck.show_deck()
+
+	print("Cards should be suffled now.\n")
+
+	print("Let's draw 2 cards and show them.")
+	print("You draw:")
+	card1 = my_deck.draw_card()
+	card1.show_card()
+	print("Your opponent draw:")
+	card1 = my_deck.draw_card()
+	card1.show_card()
 	
-	i = 0
-	while True:
-		try:
-			rounds = int(input("Please enter the amount of rounds you wish to have: "))
-			break
-		except ValueError:
-			print("Please only use positive integers")
+	# Code your Exercise 5 taks 7 game here. 
+	three_cards()
+	
+def three_cards():
+	print("\n\nDraw three cards game")
+	card_deck = deck.Deck()
+	card_deck.shuffle_deck()
 
-	for i in range(0, rounds):
-		i += 1
+	# Draw three cards for each player
+	my_cards = [card_deck.draw_card() for single_card in range(3)]
+	opponent_cards = [card_deck.draw_card() for single_card in range(3)]
+
+	# Calculate scores for each player
+	my_score = sum([card.get_value() for card in my_cards])
+	opponent_score = sum([card.get_value() for card in opponent_cards])
+	
+	# Print out the cards and scores
+	print("\nYour cards:")
+	for card in my_cards:
+		print(card)
+	print("\nOpponent's cards:")
+	for card in opponent_cards:
+		print(card)
 		
-		for roll in dice_dict.values():
-			roll_amount = random.randint(1, 6)
-			roll.roll(roll_amount)
-
-		print("\nRound", i)
-		
-		for plr, roll in dice_dict.items():
-			print(plr.get_name().capitalize(), "rolled:", roll.get_face())
-			for tot_plrs in rolls_dict.keys():
-				if tot_plrs == plr.get_name():
-					rolls_dict[tot_plrs] += roll.get_face()
-
-	max_points = max(rolls_dict.values())
-	tie_plrs = [k for k, v in rolls_dict.items() if v == max_points]
-
-	if len(tie_plrs) > 1:
-		print("\nTiebreaker round!")
-		tiebreaker_dice = dice.Dice()
-		tiebreaker_points = {}
-		
-		for plr in tie_plrs:
-			tiebreaker_points[plr] = 0
-			
-		while True:
-			print("\n")
-			for plr, roll in tiebreaker_points.items():
-				roll_amount = random.randint(1, 6)
-				tiebreaker_dice.roll(roll_amount)
-				print(plr.capitalize(), "rolled:", tiebreaker_dice.get_face())
-				tiebreaker_points[plr] = tiebreaker_dice.get_face()
-				
-			max_tiebreaker = max(tiebreaker_points.values())
-			tiebreaker_winners = [k for k, v in tiebreaker_points.items() if v == max_tiebreaker]
-			
-			if len(tiebreaker_winners) == 1:
-				win = tiebreaker_winners[0]
-				print("\nThe winner is", win, "with", max_points, "points, who won the tiebreaker with", max_tiebreaker, "points!")
-				break
-			else:
-				print("Tie! Rolling again...")
+	# Determine the winner
+	if my_score > opponent_score:
+		print("\nCongratulations, you win!")
+	elif my_score < opponent_score:
+		print("\nSorry, you lose.")
 	else:
-		win = tie_plrs[0]
-		print("\nThe winner is", win, "points, with", max_points, "total points!")
+		print("\nTie! Redrawing...")
 
-	print("\nEnding scores")
-	try:
-		print("My points:", rolls_dict[me.get_name()], "| Strangers points:", rolls_dict[stranger.get_name()], "| Friends points:", rolls_dict[friend.get_name()], "| Tiebreaker winner:", win, max_points + max_tiebreaker )
-	except UnboundLocalError:
-		print("My points:", rolls_dict[me.get_name()], "| Strangers points:", rolls_dict[stranger.get_name()], "| Friends points:", rolls_dict[friend.get_name()])
+		# If there is a tie, redraw until there is a winner
+		while my_score == opponent_score:
+			my_cards = [card_deck.draw_card() for _ in range(3)]
+			opponent_cards = [card_deck.draw_card() for _ in range(3)]
+			my_score = sum([card.get_value() for card in my_cards])
+			opponent_score = sum([card.get_value() for card in opponent_cards])
+		print("\nYour new cards:")
+		for card in my_cards:
+			print(card)
+		print("\nOpponent's new cards:")
+		for card in opponent_cards:
+			print(card)
 
-		
-		
+		if my_score > opponent_score:
+			print("\nCongratulations, you win!\n")
+		else:
+			print("\nSorry, you lose.\n")
+
+
+	print("\nYour score:", my_score)
+	print("Opponent's score:", opponent_score)
+
+
+# Calling the main function here, do not change...
 main()
